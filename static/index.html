@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="application-name" content="CPLUS预约会议系统" />
+  <meta name="apple-mobile-web-app-title" content="CPLUS预约会议系统" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>CPLUS预约会议系统</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 访问码（云端部署时可开启，仅内部知道） -->
+  <div class="pin-mask" id="pinMask" hidden>
+    <div class="pin-card">
+      <h2>CPLUS预约会议系统</h2>
+      <p>请输入访问码后继续预约</p>
+      <input type="password" id="pinInput" inputmode="numeric" placeholder="访问码" autocomplete="off" />
+      <button type="button" class="btn-submit" id="btnPin">进入</button>
+      <p class="pin-err" id="pinErr" hidden>访问码不正确</p>
+    </div>
+  </div>
+
+  <div class="app">
+    <header class="header">
+      <div class="header-text">
+        <h1>CPLUS预约会议系统</h1>
+        <p class="subtitle">周一至周五 9:30–18:00 · 先到先得</p>
+      </div>
+      <button type="button" class="btn-new" id="btnNewBooking">+ 新建预约</button>
+    </header>
+
+    <section class="legend">
+      <span class="lg free"><i></i> 可预约</span>
+      <span class="lg busy"><i></i> 已占用</span>
+      <span class="lg off"><i></i> 不可约</span>
+    </section>
+
+    <section class="toolbar">
+      <button type="button" class="btn-nav" id="btnPrevDay" aria-label="前一天">‹</button>
+      <input type="date" id="filterDate" />
+      <button type="button" class="btn-nav" id="btnNextDay" aria-label="后一天">›</button>
+      <button type="button" class="btn-today" id="btnToday">今天</button>
+      <button type="button" class="btn-today" id="btnRefresh">刷新</button>
+    </section>
+
+    <p class="day-hint" id="dayHint"></p>
+
+    <section class="rooms" id="roomCards"></section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>时间占用</h2>
+        <span class="hint">9:30 – 18:00 · 红色 = 已占用</span>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>当日预约</h2>
+        <span id="bookingCount" class="badge">0</span>
+      </div>
+      <div class="booking-list" id="bookingList"></div>
+    </section>
+  </div>
+
+  <!-- 新建 / 编辑 -->
+  <div class="modal-mask" id="modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h3 id="modalTitle">新建预约</h3>
+        <button type="button" class="icon-btn" id="btnCloseModal" aria-label="关闭">×</button>
+      </div>
+      <form id="bookingForm" class="form" novalidate>
+        <input type="hidden" id="editId" />
+
+        <div class="field">
+          <label for="roomId">会议室</label>
+          <select id="roomId" required>
+            <option value="large">大会议室（最多 10 人）</option>
+            <option value="medium">中会议室（最多 4 人）</option>
+            <option value="small">小会议室（最多 2 人）</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="date">日期（周一至周五）</label>
+          <input type="date" id="date" required />
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="startTime">开始时间</label>
+            <input type="time" id="startTime" required min="09:30" max="18:00" step="300" />
+          </div>
+          <div class="field">
+            <label for="endTime">结束时间</label>
+            <input type="time" id="endTime" required min="09:30" max="18:00" step="300" />
+          </div>
+        </div>
+        <p class="form-tip">可约时段：9:30 – 18:00</p>
+
+        <div class="field">
+          <label for="attendees">人数</label>
+          <input type="number" id="attendees" min="1" max="10" value="2" required />
+        </div>
+
+        <div class="alert" id="formAlert" hidden></div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" id="btnCancelForm">返回</button>
+          <button type="submit" class="btn-submit" id="btnSubmit">确认预约</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>

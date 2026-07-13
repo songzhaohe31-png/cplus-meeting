@@ -1,0 +1,19 @@
+# Render 一键部署配置（免费 Web Service）
+# https://render.com — 与你的私人电脑完全隔离
+services:
+  - type: web
+    name: cplus-meeting
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: ACCESS_PIN
+        generateValue: false
+        # 部署后请在 Render 后台改成你自己的访问码，例如 2580
+        value: "2580"
+      - key: DATA_DIR
+        value: /data
+    disk:
+      name: cplus-data
+      mountPath: /data
+      sizeGB: 1

@@ -1,0 +1,9 @@
+data/
+*.log
+__pycache__/
+.DS_Store
+.env
+.endpoint
+public_url.txt
+CPLUS*.png
+start_public.py
