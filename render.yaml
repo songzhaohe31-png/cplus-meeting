@@ -6,10 +6,9 @@ services:
     region: singapore
     dockerfilePath: ./Dockerfile
     envVars:
-      - key: ACCESS_PIN
-        value: "2580"
       - key: DATA_DIR
         value: /data
+      # 默认不设访问码。需要时再加：ACCESS_PIN = 你的密码
     disk:
       name: cplus-data
       mountPath: /data

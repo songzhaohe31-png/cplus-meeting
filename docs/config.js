@@ -10,6 +10,6 @@ window.CPLUS_CONFIG = {
   supabaseUrl: "PASTE_SUPABASE_URL",
   supabaseAnonKey: "PASTE_SUPABASE_ANON_KEY",
 
-  // 进入系统的访问码（改成你自己的）
-  accessPin: "2580",
+  // 访问码：留空 = 扫码直接进，不用输密码
+  accessPin: "",
 };
