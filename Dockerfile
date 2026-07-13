@@ -2,15 +2,16 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# 仅复制预约系统，不含你电脑上的任何私人文件
+# 只包含预约系统，不含你电脑上的私人文件
 COPY server.py .
 COPY static ./static
 RUN mkdir -p /data
 
-ENV PORT=10000
+# Hugging Face Spaces 默认用 7860；其它平台可覆盖 PORT
+ENV PORT=7860
 ENV DATA_DIR=/data
-# 部署后在平台环境变量里设置 ACCESS_PIN（推荐）
-# ENV ACCESS_PIN=你的访问码
+# 访问码可在平台「Variables」里设置 ACCESS_PIN
+ENV ACCESS_PIN=2580
 
-EXPOSE 10000
+EXPOSE 7860
 CMD ["python", "server.py"]
